@@ -1,8 +1,4 @@
-interface Post {
-    id: string
-    title: string
-    content: string
-  }
+
    
   // Next.js will invalidate the cache when a
   // request comes in, at most once every 60 seconds.
@@ -14,18 +10,21 @@ interface Post {
   export const dynamicParams = true // or false, to 404 on unknown paths
    
   export async function generateStaticParams() {
-    const posts: Post[] = await fetch('https://api.vercel.app/blog').then((res) =>
+    const posts = await fetch('https://api.vercel.app/blog').then((res) =>
       res.json()
     )
+    console.log(posts);
     return posts.map((post) => ({
       id: String(post.id),
     }))
   }
    
-  export default async function Page({ params }: { params: { id: string } }) {
-    const post: Post = await fetch(
+  export default async function Page(context) {
+    const params = await context;
+    const res = await fetch(
       `https://api.vercel.app/blog/${params.id}`
-    ).then((res) => res.json())
+    );
+    const post = await res.json();
     return (
       <main>
         <h1>{post.title}</h1>
