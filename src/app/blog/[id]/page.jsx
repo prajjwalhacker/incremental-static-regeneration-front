@@ -20,9 +20,10 @@
   }
    
   export default async function Page(context) {
-    const params = await context;
+    const params = (await context).params;
+    const id = (await params).id;
     const res = await fetch(
-      `https://api.vercel.app/blog/${params.id}`
+      `https://api.vercel.app/blog/${id}`
     );
     const post = await res.json();
     return (
