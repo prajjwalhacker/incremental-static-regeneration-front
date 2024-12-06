@@ -27,6 +27,10 @@
       `https://api.vercel.app/blog/${id}`
     );
     const post = await res.json();
+
+    console.log("posttt");
+    console.log(post);
+
     return (
       <main>
         <h1>{post.title}</h1>
