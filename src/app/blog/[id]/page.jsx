@@ -2,7 +2,7 @@
    
   // Next.js will invalidate the cache when a
   // request comes in, at most once every 60 seconds.
-  export const revalidate = 60
+  export const revalidate = 30
    
   // We'll prerender only the params from `generateStaticParams` at build time.
   // If a request comes in for a path that hasn't been generated,
@@ -13,6 +13,7 @@
     const posts = await fetch('https://api.vercel.app/blog').then((res) =>
       res.json()
     )
+    console.log("hello");
     console.log(posts);
     return posts.map((post) => ({
       id: String(post.id),
